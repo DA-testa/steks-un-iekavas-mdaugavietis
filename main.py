@@ -4,28 +4,41 @@ from collections import namedtuple
 
 Bracket = namedtuple("Bracket", ["char", "position"])
 
-
-def are_matching(left, right):
-    return (left + right) in ["()", "[]", "{}"]
-
-
 def find_mismatch(text):
     opening_brackets_stack = []
+    brackets = 0
     for i, next in enumerate(text):
         if next in "([{":
-            # Process opening bracket, write your code here
-            pass
+            head = Bracket(next, i+1)
+            opening_brackets_stack.append(head)
+            brackets += 1
 
         if next in ")]}":
-            # Process closing bracket, write your code here
-            pass
-
+            if len(opening_brackets_stack) == 0:
+                return i+1
+            if ((head.char == '(' and next == ')') or
+                (head.char == '[' and next == ']') or
+                (head.char == '{' and next == '}')
+               ):
+                opening_brackets_stack.pop()
+            else:
+                return i+1
+            brackets -= 1
+            if brackets > 0:
+                head = opening_brackets_stack[len(opening_brackets_stack)-1]
+    if brackets > 0:
+        return brackets 
+    else:
+        return -1
 
 def main():
+    mode = input()
     text = input()
     mismatch = find_mismatch(text)
-    # Printing answer, write your code here
-
+    if mismatch == -1:
+        print("Success")
+    else:
+        print(mismatch)
 
 if __name__ == "__main__":
     main()
