@@ -32,15 +32,7 @@ def find_mismatch(text):
         return -1
 
 def main():
-    mode = input()
-    if mode == "I":
-        text = input()
-    elif mode == "F":
-        with open(input(), "r") as f:
-            text = f.read()
-    else:
-        print("No mode selected")
-        return
+    text = input()
     mismatch = find_mismatch(text)
     if mismatch == -1:
         print("Success")
