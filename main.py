@@ -32,6 +32,7 @@ def find_mismatch(text):
         return -1
 
 def main():
+    mode = input()
     text = input()
     mismatch = find_mismatch(text)
     if mismatch == -1:
